@@ -1,12 +1,12 @@
-// step-1: generate the random number by using function
-function generateRandomNumber(){
+// generate a random number by using function
+function generatePin(){
     const randomNumber = Math.round(Math.random() * 10000);
     return randomNumber;
 }
 
-// step-2: get the 4 digit pin by using function
+// get 4 digit pin number by using function
 function getPin(){
-    const pin = generateRandomNumber();
+    const pin = generatePin();
     const pinString = pin + '';
     if(pinString.length === 4){
         return pin;
@@ -16,61 +16,63 @@ function getPin(){
     }
 }
 
-// step-3: add even listener for the generate pin button
+// add event listener for generate pin button
 document.getElementById('generate-pin').addEventListener('click', function(){
-    const pin = getPin();
+   const pin = getPin();
 
-    // step-4: show the pin of the display field 
+    // set the pin of the display-pin field
     const displayPinField = document.getElementById('display-pin');
     displayPinField.value = pin;
-});
+})
 
-// step-5: add event listener for the calculator button
+// add event listener for the calculator 
 document.getElementById('calculator').addEventListener('click', function(event){
-    // step-6: get the number from the calculator filed
     const number = event.target.innerText;
 
-    // step-7: show the number of the type-number field
+    // get the type number field value
     const typeNumberField = document.getElementById('type-number');
-    const previousTypeNumber = typeNumberField.value;
+    const previousTypedNumber = typeNumberField.value;
 
-    if(isNaN(number)){
+    // check is number
+    if(isNaN (number)){
         if(number === 'C'){
-            typeNumberField.value = ''
+            typeNumberField.value = '';
         }
         else if(number === '<'){
-            const digits =  previousTypeNumber.split('');
+            const digits = previousTypedNumber.split('');
             digits.pop();
-            const remaining = digits.join('');
-            typeNumberField.value = remaining;
+            const remainingDigits = digits.join('');
+            typeNumberField.value = remainingDigits;
         }
     }
     else{
-        const newTypeNumber = previousTypeNumber + number;
-        typeNumberField.value = newTypeNumber;
+        const newNumber = previousTypedNumber + number;
+        typeNumberField.value = newNumber;
     }
-});
+})
 
-// add even listener for the submit button
+// add event listener for the submit button
 document.getElementById('verify-pin').addEventListener('click', function(){
 
-    // get the display field value
-    const disPlayPinField = document.getElementById('display-pin');
-    const currentPin = disPlayPinField.value;
+    // get the value of display pin field
+    const displayPinField = document.getElementById('display-pin');
+    const currentPin = displayPinField.value;
 
-    // get the type Number field value
+    // get the value of type number field
     const typeNumberField = document.getElementById('type-number');
     const typeNumber = typeNumberField.value;
 
-    const pinSuccessMessage = document.getElementById('pin-success')
-    const pinFailureMessage = document.getElementById('pin-failure')
-    
+    // get message element
+    const pinSuccessMessage = document.getElementById('pin-success');
+    const pinFailureMessage = document.getElementById('pin-failure');
+
+    // verify pin 
     if(currentPin === typeNumber){
         pinSuccessMessage.style.display = 'block';
         pinFailureMessage.style.display = 'none';
     }
     else{
-        pinFailureMessage.style.display = 'block';
-        pinSuccessMessage.style.display = 'none'
+       pinFailureMessage.style.display = 'block';
+       pinSuccessMessage.style.display = 'none'
     }
 })
